@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Wick",
+    "slug": "wick",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0E1116",
+    "ios": { "supportsTablet": false, "bundleIdentifier": "app.wick.mobile" },
+    "android": { "package": "app.wick.mobile" },
+    "plugins": [
+      ["expo-image-picker", { "photosPermission": "Wick needs access to your photos so you can choose a chart screenshot to analyse." }]
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+filename,instrument,timeframe,expected_direction,notes
+synth_01.png,SYNTH,1h,down,"synthetic, light, ma20, net/range=-27.2, drift=-0.3, noise=0.4"
+synth_02.png,SYNTH,1h,sideways,"synthetic, dark, net/range=-0.5, drift=0.0, noise=1.3"
+synth_03.png,SYNTH,1h,up,"synthetic, light, net/range=12.6, drift=0.3, noise=0.7"
+synth_04.png,SYNTH,1h,down,"synthetic, dark, ma20, net/range=-4.7, drift=-0.03, noise=1.6"
+synth_05.png,SYNTH,1h,up,"synthetic, light, cropped, net/range=5.6, drift=0.18, noise=1.0"
+synth_06.png,SYNTH,1h,up,"synthetic, dark, net/range=4.7, drift=-0.08, noise=0.7"
+synth_07.png,SYNTH,1h,sideways,"synthetic, light, ma20, net/range=0.3, drift=0.08, noise=1.6"
+synth_08.png,SYNTH,1h,down,"synthetic, dark, net/range=-8.8, drift=-0.18, noise=1.0"
+synth_09.png,SYNTH,1h,down,"synthetic, light, net/range=-3.6, drift=0.03, noise=0.4, near threshold (ambiguous)"
+synth_10.png,SYNTH,1h,down,"synthetic, dark, ma20, cropped, net/range=-15.7, drift=-0.3, noise=1.3"
+synth_11.png,SYNTH,1h,sideways,"synthetic, light, net/range=-0.9, drift=0.0, noise=1.0"
+synth_12.png,SYNTH,1h,up,"synthetic, dark, net/range=27.5, drift=0.3, noise=0.4"
+synth_13.png,SYNTH,1h,sideways,"synthetic, light, ma20, net/range=-2.7, drift=-0.03, noise=1.3, near threshold (ambiguous)"
+synth_14.png,SYNTH,1h,up,"synthetic, dark, net/range=10.3, drift=0.18, noise=0.7"
+synth_15.png,SYNTH,1h,sideways,"synthetic, light, cropped, net/range=1.2, drift=-0.08, noise=1.6"
+synth_16.png,SYNTH,1h,up,"synthetic, dark, ma20, net/range=6.6, drift=0.08, noise=1.3"
+synth_17.png,SYNTH,1h,down,"synthetic, light, net/range=-9.0, drift=-0.18, noise=0.7"
+synth_18.png,SYNTH,1h,up,"synthetic, dark, net/range=3.1, drift=0.03, noise=1.6, near threshold (ambiguous)"
+synth_19.png,SYNTH,1h,down,"synthetic, light, ma20, net/range=-18.6, drift=-0.3, noise=1.0"
+synth_20.png,SYNTH,1h,sideways,"synthetic, dark, cropped, net/range=0.5, drift=0.0, noise=0.4"
+synth_neg_01.png,,,not_a_chart,synthetic negative: bar chart of categories
+synth_neg_02.png,,,not_a_chart,synthetic negative: pie chart of categories
+synth_neg_03.png,,,not_a_chart,synthetic negative: bar chart of categories
+synth_neg_04.png,,,not_a_chart,synthetic negative: pie chart of categories

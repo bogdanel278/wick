@@ -1,0 +1,272 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WickAnalysis",
+  "type": "object",
+  "required": [
+    "id",
+    "status",
+    "chart",
+    "trend",
+    "levels",
+    "patterns",
+    "scenarios",
+    "confidence",
+    "caveats",
+    "disclaimer",
+    "meta"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "not_a_chart"
+      ]
+    },
+    "chart": {
+      "type": "object",
+      "required": [
+        "instrument",
+        "timeframe",
+        "chart_type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "instrument": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 20
+        },
+        "timeframe": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 20
+        },
+        "chart_type": {
+          "enum": [
+            "candlestick",
+            "line",
+            "bar",
+            "other"
+          ]
+        }
+      }
+    },
+    "trend": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "direction",
+        "strength",
+        "summary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "up",
+            "down",
+            "sideways",
+            "unclear"
+          ]
+        },
+        "strength": {
+          "enum": [
+            "weak",
+            "moderate",
+            "strong"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 400
+        }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "approx_price",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "support",
+              "resistance"
+            ]
+          },
+          "approx_price": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      },
+      "maxItems": 8
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      },
+      "maxItems": 6
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "description",
+          "trigger",
+          "invalidation"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "enum": [
+              "bullish",
+              "bearish",
+              "neutral"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "trigger": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "invalidation": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      },
+      "maxItems": 3
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      },
+      "maxItems": 6
+    },
+    "disclaimer": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "model",
+        "prompt_version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "prompt_version": {
+          "type": "string",
+          "maxLength": 40
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "not_a_chart"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "trend": {
+            "type": "null"
+          },
+          "levels": {
+            "maxItems": 0
+          },
+          "patterns": {
+            "maxItems": 0
+          },
+          "scenarios": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ok"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "trend": {
+            "type": "object"
+          },
+          "scenarios": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

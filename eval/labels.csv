@@ -1,0 +1,4 @@
+filename,instrument,timeframe,expected_direction,notes
+EXAMPLE_uptrend.png,EURUSD,4h,up,EXAMPLE ROW - file does not exist; replace with real screenshots
+EXAMPLE_downtrend.png,AAPL,1D,down,EXAMPLE ROW - file does not exist; replace with real screenshots
+EXAMPLE_range.png,BTCUSD,1h,sideways,EXAMPLE ROW - file does not exist; replace with real screenshots
