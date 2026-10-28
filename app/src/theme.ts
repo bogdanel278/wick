@@ -6,13 +6,13 @@ export const colors = {
   surfaceAlt: '#1D242D',
   border: '#262E38',
   text: '#E8E4DA',
-  textMuted: '#A3ACB9' // >= 6.8:1 on bg, surface and surfaceAlt,
+  textMuted: '#A3ACB9', // >= 6.8:1 on bg, surface and surfaceAlt
   accent: '#D9B26F', // warm amber, like candlelight
   // Calm, desaturated directional tones.
   up: '#7FB5A3',
   down: '#C98B84',
   flat: '#9AA6B8',
-  unclear: '#9AA4B2' // >= 6.2:1 on bg, surface and surfaceAlt,
+  unclear: '#9AA4B2', // >= 6.2:1 on bg, surface and surfaceAlt
   danger: '#C98B84',
 };
 
