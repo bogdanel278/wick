@@ -48,8 +48,8 @@ export async function analyzeChart(input: AnalyzeInput, signal?: AbortSignal): P
   if (USE_MOCK) {
     await new Promise((r) => setTimeout(r, 1200));
     if (signal?.aborted) throw new AnalyzeError('cancelled', 'Cancelled.');
-    // Handy for UI work: typing "nochart" as the instrument shows the not_a_chart state.
-    return input.instrument?.toLowerCase() === 'nochart' ? MOCK_NOT_A_CHART : MOCK_ANALYSIS;
+    // Handy for UI work (mock mode only): picking the 1m timeframe shows the not_a_chart state.
+    return input.timeframe === '1m' ? MOCK_NOT_A_CHART : MOCK_ANALYSIS;
   }
 
   const apiUrl = getApiUrl();

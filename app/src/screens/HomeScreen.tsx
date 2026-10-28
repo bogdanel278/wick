@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator, Image, KeyboardAvoidingView, Platform, Pressable,
-  ScrollView, StyleSheet, Text, TextInput, View,
+  ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { analyzeChart, AnalyzeError } from '../api';
 import { prepareImage } from '../image';
 import LegalLinks from '../components/LegalLinks';
+import ChipPicker from '../components/ChipPicker';
+import { INSTRUMENTS, TIMEFRAMES } from '../options';
 import type { WickAnalysis } from '../types';
 import { colors, fonts, space } from '../theme';
 
@@ -16,8 +18,8 @@ interface Props {
 
 export default function HomeScreen({ onResult }: Props) {
   const [asset, setAsset] = useState<ImagePicker.ImagePickerAsset | null>(null);
-  const [instrument, setInstrument] = useState('');
-  const [timeframe, setTimeframe] = useState('');
+  const [instrument, setInstrument] = useState<string | null>(null);
+  const [timeframe, setTimeframe] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -45,7 +47,10 @@ export default function HomeScreen({ onResult }: Props) {
     try {
       const imageUri = await prepareImage(asset.uri, asset.width, asset.height);
       if (controller.signal.aborted) return;
-      const out = await analyzeChart({ imageUri, instrument, timeframe }, controller.signal);
+      const out = await analyzeChart(
+        { imageUri, instrument: instrument ?? undefined, timeframe: timeframe ?? undefined },
+        controller.signal,
+      );
       onResult(out);
     } catch (e) {
       if (e instanceof AnalyzeError && e.code === 'cancelled') return;
@@ -102,34 +107,20 @@ export default function HomeScreen({ onResult }: Props) {
           </Pressable>
         )}
 
-        <View style={styles.row}>
-          <View style={styles.field}>
-            <Text style={styles.label}>Instrument (optional)</Text>
-            <TextInput
-              style={styles.input}
-              value={instrument}
-              onChangeText={setInstrument}
-              placeholder="EURUSD"
-              placeholderTextColor={colors.unclear}
-              autoCapitalize="characters"
-              autoCorrect={false}
-              editable={!loading}
-            />
-          </View>
-          <View style={styles.field}>
-            <Text style={styles.label}>Timeframe (optional)</Text>
-            <TextInput
-              style={styles.input}
-              value={timeframe}
-              onChangeText={setTimeframe}
-              placeholder="4h"
-              placeholderTextColor={colors.unclear}
-              autoCapitalize="none"
-              autoCorrect={false}
-              editable={!loading}
-            />
-          </View>
-        </View>
+        <ChipPicker
+          label="Currency pair (optional)"
+          options={INSTRUMENTS}
+          value={instrument}
+          onChange={setInstrument}
+          disabled={loading}
+        />
+        <ChipPicker
+          label="Timeframe (optional)"
+          options={TIMEFRAMES}
+          value={timeframe}
+          onChange={setTimeframe}
+          disabled={loading}
+        />
 
         {error && <Text style={styles.error}>{error}</Text>}
 
@@ -184,13 +175,6 @@ const styles = StyleSheet.create({
   change: { color: colors.accent, textAlign: 'center', fontSize: 14 },
   cancel: { minHeight: 44, alignItems: 'center', justifyContent: 'center', marginTop: space.sm },
   cancelText: { color: colors.accent, fontSize: 16 },
-  row: { flexDirection: 'row', gap: space.md, marginTop: space.lg },
-  field: { flex: 1 },
-  label: { color: colors.textMuted, fontSize: 13, marginBottom: space.xs, letterSpacing: 0.5 },
-  input: {
-    backgroundColor: colors.surface, borderColor: colors.border, borderWidth: 1,
-    borderRadius: 10, minHeight: 44, color: colors.text, paddingHorizontal: 12, paddingVertical: 10, fontSize: 16,
-  },
   error: { color: colors.danger, marginTop: space.md, fontSize: 14, lineHeight: 20 },
   button: {
     backgroundColor: colors.accent, borderRadius: 12, paddingVertical: 16,

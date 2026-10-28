@@ -16,7 +16,7 @@ npx expo start           # press i (iOS sim), a (Android), or scan QR with Expo 
 | var | default | notes |
 |---|---|---|
 | `EXPO_PUBLIC_API_URL` | dev only: `http://localhost:8000` (iOS), `http://10.0.2.2:8000` (Android) | **Physical device: set it to your computer's LAN IP**, e.g. `http://192.168.1.20:8000`; localhost and 10.0.2.2 only work in simulators/emulators. **Release builds must set it, and it must be `https://`** (iOS App Transport Security and Android block cleartext HTTP). If it is missing in a non-dev build with mock off, the app shows a configuration error instead of calling anything. |
-| `EXPO_PUBLIC_USE_MOCK` | `0` | `1` returns a canned response, no backend needed. Type `nochart` as the instrument to preview the not_a_chart screen. |
+| `EXPO_PUBLIC_USE_MOCK` | `0` | `1` returns a canned response, no backend needed. Pick the `1m` timeframe to preview the not_a_chart screen. |
 
 Restart `expo start` (with `-c`) after changing env vars.
 
